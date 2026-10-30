@@ -1,0 +1,13 @@
+<!-- frontend/views/partials/admin-user-row.html - User table row with actions  [Part 4: Reports & Admin Panel] -->
+<tr>
+  <td>{{name}}</td><td>{{email}}</td><td>{{role}}</td><td>{{accounts}}</td><td>{{transactions}}</td>
+  <td><span class="tag {{tagCls}}">{{status}}</span></td>
+  <td class="actions">
+    {{{toggle}}}
+    <form method="post" action="/admin/users/{{id}}/password" class="mini">
+      <input name="password" type="password" placeholder="New password" minlength="6" required>
+      <button class="sm">Reset</button>
+    </form>
+    {{{delete}}}
+  </td>
+</tr>
