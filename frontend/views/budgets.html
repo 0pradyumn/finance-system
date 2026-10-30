@@ -1,0 +1,12 @@
+<!-- frontend/views/budgets.html - Budgets page  [Part 3: Dashboard, Budgets & Savings Goals] -->
+<p class="muted">Monthly spending limits for the current month.</p>
+<datalist id="cats">
+  <option>Food</option><option>Rent</option><option>Transport</option><option>Utilities</option><option>Shopping</option>
+  <option>Health</option><option>Education</option><option>Entertainment</option><option>Other</option>
+</datalist>
+<form method="post" action="/budgets" class="inline">
+  <input name="category" list="cats" placeholder="Expense category" required maxlength="30">
+  <input name="limit" type="number" step="0.01" min="1" placeholder="Monthly limit" required>
+  <button class="btn">Save budget</button>
+</form>
+{{{items}}}

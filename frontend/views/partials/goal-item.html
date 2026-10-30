@@ -1,0 +1,13 @@
+<!-- frontend/views/partials/goal-item.html - One savings goal  [Part 3: Dashboard, Budgets & Savings Goals] -->
+<div class="panel">
+  <div class="row"><b>{{name}}</b><span>{{saved}} / {{target}} ({{pct}}%){{deadline}}</span></div>
+  {{{bar}}}
+  <form method="post" action="/goals/{{id}}/add" class="inline">
+    <input name="amount" type="number" step="0.01" placeholder="Amount (negative to withdraw)" required>
+    <button class="sm">+ Add money</button>
+  </form>
+  <details class="confirm">
+    <summary class="sm del">Delete goal</summary>
+    <form method="post" action="/goals/{{id}}/delete"><button class="sm del">Confirm delete</button></form>
+  </details>
+</div>
