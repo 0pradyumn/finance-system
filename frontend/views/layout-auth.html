@@ -1,0 +1,22 @@
+<!-- frontend/views/layout-auth.html - Layout for login / register / error pages  [Part 1: Core & Authentication] -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{title}} - FinTrack</title>
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/auth.css">
+</head>
+<body>
+  <div class="auth">
+    <div class="box">
+      <h1>💰 FinTrack</h1>
+      <p class="muted">Banking &amp; Personal Finance Management</p>
+      {{{flash}}}
+      {{{content}}}
+    </div>
+  </div>
+</body>
+</html>

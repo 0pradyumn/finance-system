@@ -1,0 +1,56 @@
+/* frontend/css/auth.css - Login / register screen  [Part 1: Core & Authentication] */
+
+.auth {
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,#1e3a8a,#0f766e);
+  padding:16px;
+}
+.box {
+  background:#fff;
+  padding:28px;
+  border-radius:16px;
+  width:100%;
+  max-width:380px;
+  box-shadow:0 20px 50px #0004;
+}
+.box h1 {
+  margin:0;
+  text-align:center;
+}
+.box p {
+  text-align:center;
+  margin:4px 0 16px;
+}
+.box form {
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.box form[hidden] {
+  display:none;
+}
+.tabs {
+  display:flex;
+  margin-bottom:14px;
+  border-bottom:2px solid #e2e8f0;
+}
+.tabs button {
+  flex:1;
+  border:0;
+  background:none;
+  padding:10px;
+  font:inherit;
+  font-weight:600;
+  color:#64748b;
+  cursor:pointer;
+}
+.tabs .on {
+  color:#2563eb;
+  border-bottom:2px solid #2563eb;
+  margin-bottom:-2px;
+}
+
+.tabs a { flex: 1; text-align: center; padding: 10px; font-weight: 600; color: #64748b; text-decoration: none; }
+.tabs a.on { color: #2563eb; border-bottom: 2px solid #2563eb; margin-bottom: -2px; }

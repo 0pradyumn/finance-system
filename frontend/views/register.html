@@ -1,0 +1,8 @@
+<!-- frontend/views/register.html - Register page  [Part 1: Core & Authentication] -->
+<div class="tabs"><a href="/login">Login</a><a href="/register" class="on">Register</a></div>
+<form method="post" action="/register">
+  <input name="name" placeholder="Full name" required maxlength="50">
+  <input name="email" type="email" placeholder="Email" required>
+  <input name="password" type="password" placeholder="Password (min 6 characters)" minlength="6" required>
+  <button class="btn">Create account</button>
+</form>
