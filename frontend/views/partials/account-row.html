@@ -1,0 +1,10 @@
+<!-- frontend/views/partials/account-row.html - Account table row  [Part 2: Accounts & Transactions] -->
+<tr>
+  <td>{{name}}</td><td>{{type}}</td><td>{{opening}}</td><td><b>{{balance}}</b></td>
+  <td class="actions">
+    <details class="confirm">
+      <summary class="sm del">Delete</summary>
+      <form method="post" action="/accounts/{{id}}/delete"><button class="sm del">Confirm: delete account and its transactions</button></form>
+    </details>
+  </td>
+</tr>
