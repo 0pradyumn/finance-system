@@ -1,0 +1,35 @@
+<!-- frontend/views/transactions.html - Transactions page  [Part 2: Accounts & Transactions] -->
+<datalist id="cats">
+  <option>Food</option><option>Rent</option><option>Transport</option><option>Utilities</option><option>Shopping</option>
+  <option>Health</option><option>Education</option><option>Entertainment</option><option>Salary</option><option>Business</option>
+  <option>Interest</option><option>Gift</option><option>Other</option>
+</datalist>
+
+<form method="post" action="{{action}}" class="inline">
+  <select name="accountId">{{{accountOptions}}}</select>
+  <select name="type">
+    <option value="expense" {{expSel}}>Expense</option>
+    <option value="income" {{incSel}}>Income</option>
+  </select>
+  <input name="category" list="cats" placeholder="Category" value="{{category}}" required maxlength="30">
+  <input name="amount" type="number" step="0.01" min="0.01" placeholder="Amount" value="{{amount}}" required>
+  <input name="date" type="date" value="{{date}}" required>
+  <input name="note" placeholder="Note (optional)" value="{{note}}" maxlength="120">
+  <button class="btn">{{submit}}</button>
+  {{{cancel}}}
+</form>
+
+<form method="get" action="/transactions" class="inline filters">
+  <select name="type">
+    <option value="">All types</option>
+    <option value="income" {{fInc}}>Income</option>
+    <option value="expense" {{fExp}}>Expense</option>
+  </select>
+  <input name="category" placeholder="Category filter" value="{{fCategory}}">
+  <input name="from" type="date" value="{{fFrom}}">
+  <input name="to" type="date" value="{{fTo}}">
+  <button class="btn sec">Filter</button>
+  <a class="sm" href="/transactions">Clear</a>
+</form>
+
+{{{table}}}

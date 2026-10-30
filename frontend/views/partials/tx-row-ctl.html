@@ -1,0 +1,8 @@
+<!-- frontend/views/partials/tx-row-ctl.html - Transaction row with Edit/Delete  [Part 2: Accounts & Transactions] -->
+<tr>
+  <td>{{date}}</td><td>{{who}}</td><td>{{category}}</td><td>{{note}}</td><td class="{{cls}}">{{amount}}</td>
+  <td class="actions">
+    <a class="sm" href="/transactions?edit={{id}}">Edit</a>
+    <form method="post" action="/transactions/{{id}}/delete"><button class="sm del">Delete</button></form>
+  </td>
+</tr>
