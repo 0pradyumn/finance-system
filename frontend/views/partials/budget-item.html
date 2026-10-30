@@ -1,0 +1,6 @@
+<!-- frontend/views/partials/budget-item.html - One budget  [Part 3: Dashboard, Budgets & Savings Goals] -->
+<div class="panel">
+  <div class="row"><b>{{category}}</b><span>{{spent}} of {{limit}} <span class="tag {{tagCls}}">{{status}}</span></span></div>
+  {{{bar}}}
+  <form method="post" action="/budgets/{{id}}/delete"><button class="sm del">Remove</button></form>
+</div>
