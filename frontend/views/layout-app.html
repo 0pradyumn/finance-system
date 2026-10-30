@@ -1,0 +1,30 @@
+<!-- frontend/views/layout-app.html - Page layout: sidebar + content  [Part 1: Core & Authentication] -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{title}} - FinTrack</title>
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+  {{{pageStyles}}}
+</head>
+<body>
+  <div class="app">
+    <aside>
+      <h2>💰 FinTrack</h2>
+      <div class="role">{{roleLabel}}</div>
+      {{{nav}}}
+      <div class="spacer"></div>
+      <div class="who">{{name}}<br><small>{{email}}</small></div>
+      <form method="post" action="/logout"><button class="linkbtn">Logout</button></form>
+    </aside>
+    <main>
+      <h1>{{title}}</h1>
+      {{{flash}}}
+      {{{content}}}
+    </main>
+  </div>
+</body>
+</html>
