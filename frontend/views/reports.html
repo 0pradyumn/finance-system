@@ -1,0 +1,23 @@
+<!-- frontend/views/reports.html - Reports page  [Part 4: Reports & Admin Panel] -->
+<form method="get" action="/reports" class="inline">
+  <label>From <input name="from" type="date" value="{{from}}"></label>
+  <label>To <input name="to" type="date" value="{{to}}"></label>
+  <button class="btn">Generate</button>
+  <a class="btn sec" href="/reports/export.csv?from={{from}}&amp;to={{to}}">Export CSV</a>
+</form>
+
+<div class="cards">{{{cards}}}</div>
+
+<div class="grid">
+  <section>
+    <h3>Expenses by category</h3>
+    {{{expenses}}}
+    <h3>Income by category</h3>
+    {{{income}}}
+  </section>
+  <section>
+    <h3>Last 6 months</h3>
+    <div class="trend">{{{trend}}}</div>
+    <p class="muted"><span class="dot g"></span>Income <span class="dot r"></span>Expense</p>
+  </section>
+</div>

@@ -1,0 +1,43 @@
+/* frontend/css/pages/reports.css - Reports 6-month trend chart  [Part 4: Reports & Admin Panel] */
+
+.trend {
+  display:flex;
+  gap:10px;
+  height:180px;
+  align-items:flex-end;
+}
+.col {
+  flex:1;
+  text-align:center;
+}
+.bars {
+  height:150px;
+  display:flex;
+  gap:3px;
+  align-items:flex-end;
+}
+.bars i {
+  flex:1;
+  display:block;
+  min-height:2px;
+  border-radius:3px 3px 0 0;
+}
+.in {
+  background:#16a34a;
+}
+.out {
+  background:#dc2626;
+}
+.dot {
+  display:inline-block;
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  margin:0 4px 0 10px;
+}
+.dot.g {
+  background:#16a34a;
+}
+.dot.r {
+  background:#dc2626;
+}
