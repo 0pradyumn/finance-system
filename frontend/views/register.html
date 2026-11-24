@@ -1,7 +1,7 @@
 <!-- frontend/views/register.html - Register page  [Part 1: Core & Authentication] -->
 <div class="tabs"><a href="/login">Login</a><a href="/register" class="on">Register</a></div>
 <form method="post" action="/register">
-  <input name="name" placeholder="Full name" aria-label="Full name" required maxlength="50" autocomplete="name">
+  <input name="name" placeholder="Full name" aria-label="Full name" pattern="[\p{L}\p{M}]+(?: [\p{L}\p{M}]+)*" title="Use letters and spaces only" required maxlength="50" autocomplete="name">
   <input name="email" type="email" placeholder="Email" aria-label="Email" maxlength="80" autocomplete="email" required>
   <input name="password" type="password" placeholder="Password (min 6 characters)" aria-label="Password" minlength="6" maxlength="128" autocomplete="new-password" required>
   <input name="confirmPassword" type="password" placeholder="Confirm password" aria-label="Confirm password" minlength="6" maxlength="128" autocomplete="new-password" required>

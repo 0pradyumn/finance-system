@@ -15,6 +15,7 @@ module.exports = function (R) {
 
   R('POST', '/register', false, ({ b }) => {
     const name = str(b.name, 'Name', 50), email = str(b.email, 'Email', 80).toLowerCase();
+    if (!/^[\p{L}\p{M}]+(?: [\p{L}\p{M}]+)*$/u.test(name)) err(400, 'Name can contain letters and spaces only');
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) err(400, 'Enter a valid email');
     if (String(b.password || '').length < 6 || String(b.password || '').length > 128) err(400, 'Password must be between 6 and 128 characters');
     if (b.password !== b.confirmPassword) err(400, 'Passwords do not match');
