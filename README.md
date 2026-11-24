@@ -1,14 +1,17 @@
 # Banking and Personal Finance Management System
 GLA University, Mathura - B.Tech CSE 3rd Year
 
-**Frontend: HTML + CSS only.  Backend: Node.js (JavaScript) + JSON database.**
+**Frontend: HTML + CSS only. Backend: Node.js (JavaScript) + JSON Server's file-backed JSON store.**
 
 ## Run
 1. Install Node.js 16.7+ (https://nodejs.org).
-2. In the project folder (the one with `server.js`): `node server.js`
-3. Open http://localhost:3000  (other port: `PORT=8080 node server.js`; PowerShell: `$env:PORT=8080; node server.js`)
+2. In the project folder (the one with `server.js`): `npm install`
+3. Start the app: `npm start`
+4. Open http://localhost:3000 (other port: `PORT=8080 npm start`; PowerShell: `$env:PORT=8080; npm start`)
 
-No `npm install` needed. Database file `bank-data.json` is created automatically (delete it to reset).
+For an isolated database, set `DB_FILE` to a JSON file path before starting the server.
+
+The JSON Server/Lowdb store persists to `bank-data.json`, which is created automatically. The raw database router is kept inside the server and is not exposed as an unauthenticated API, so password hashes and sessions are not available to browsers. Delete the file to reset the database.
 
 ## Logins
 - Admin: `admin@bank.com` / `Admin@123` (change after first login: Admin > Users > Reset)
@@ -37,7 +40,7 @@ finance-system/
 ```
 
 ## How it works
-Browser -> HTML form / link -> Node route (`backend/routes/*.js`) -> validates + reads/writes `bank-data.json`
+Browser -> HTML form / link -> Node route (`backend/routes/*.js`) -> validates + reads/writes the JSON Server-backed `bank-data.json` store
 -> fills an HTML template (`frontend/views/*.html`) -> sends finished HTML to the browser. No JavaScript runs in the browser.
 Security: scrypt-hashed passwords, HttpOnly session cookie (7 days), per-user ownership checks, admin-only routes, HTML-escaped output.
 The system manages records only; it does not execute real banking transactions.

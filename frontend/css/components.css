@@ -100,8 +100,8 @@ th {
 }
 
 .actions form, .actions details { display: inline-block; margin: 2px 4px 2px 0; vertical-align: middle; }
-.mini { display: inline-flex; gap: 4px; }
-.mini input { width: 120px; padding: 4px 8px; }
+.mini { display: inline-flex; flex-direction: column; gap: 4px; }
+.mini input { width: 150px; padding: 4px 8px; }
 details.confirm summary { list-style: none; cursor: pointer; display: inline-block; }
 details.confirm summary::-webkit-details-marker { display: none; }
 details.confirm[open] summary { display: none; }

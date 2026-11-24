@@ -1,7 +1,7 @@
 /* backend/routes/goals.js - Routes: savings goals  [Part 3: Dashboard, Budgets & Savings Goals] */
 
 const { db, save, nid } = require('../core/db');
-const { own, pos, str, sum, err } = require('../core/helpers');
+const { own, pos, nonNegative, signed, dt, str, sum, err } = require('../core/helpers');
 const { render, each, money } = require('../core/view');
 const { page, bar, empty } = require('../core/components');
 
@@ -14,13 +14,15 @@ module.exports = function (R) {
   });
 
   R('POST', '/goals', 'customer', ({ user, b }) => {
-    db.goals.push({ id: nid(), userId: user.id, name: str(b.name, 'Goal name', 40), target: pos(b.target, 'Target'), saved: Math.max(0, Number(b.saved) || 0), deadline: b.deadline || '' });
+    db.goals.push({ id: nid(), userId: user.id, name: str(b.name, 'Goal name', 40), target: pos(b.target, 'Target'), saved: nonNegative(b.saved, 'Saved amount', 0), deadline: b.deadline ? dt(b.deadline) : '' });
     save(); return { redirect: '/goals', ok: 'Goal added' };
   });
 
   R('POST', '/goals/:id/add', 'customer', ({ user, p, b }) => {
     const g = db.goals.find(x => x.id === +p.id && x.userId === user.id); if (!g) err(404, 'Goal not found');
-    g.saved = Math.max(0, sum([g.saved, Number(b.amount) || 0])); save(); return { redirect: '/goals', ok: 'Goal updated' };
+    const amount = signed(b.amount, 'Amount');
+    if (g.saved + amount < 0) err(400, 'Withdrawal cannot exceed the amount saved');
+    g.saved = sum([g.saved, amount]); save(); return { redirect: '/goals', ok: 'Goal updated' };
   });
 
   R('POST', '/goals/:id/delete', 'customer', ({ user, p }) => { db.goals = db.goals.filter(x => !(x.id === +p.id && x.userId === user.id)); save(); return { redirect: '/goals', ok: 'Goal deleted' }; });

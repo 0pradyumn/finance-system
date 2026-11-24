@@ -6,28 +6,28 @@
 </datalist>
 
 <form method="post" action="{{action}}" class="inline">
-  <select name="accountId">{{{accountOptions}}}</select>
-  <select name="type">
+  <select name="accountId" aria-label="Account" required>{{{accountOptions}}}</select>
+  <select name="type" aria-label="Transaction type" required>
     <option value="expense" {{expSel}}>Expense</option>
     <option value="income" {{incSel}}>Income</option>
   </select>
-  <input name="category" list="cats" placeholder="Category" value="{{category}}" required maxlength="30">
-  <input name="amount" type="number" step="0.01" min="0.01" placeholder="Amount" value="{{amount}}" required>
-  <input name="date" type="date" value="{{date}}" required>
-  <input name="note" placeholder="Note (optional)" value="{{note}}" maxlength="120">
+  <input name="category" list="cats" placeholder="Category" aria-label="Category" value="{{category}}" required maxlength="30">
+  <input name="amount" type="number" step="0.01" min="0.01" placeholder="Amount" aria-label="Amount" value="{{amount}}" required>
+  <input name="date" type="date" aria-label="Date" value="{{date}}" required>
+  <input name="note" placeholder="Note (optional)" aria-label="Note (optional)" value="{{note}}" maxlength="120">
   <button class="btn">{{submit}}</button>
   {{{cancel}}}
 </form>
 
 <form method="get" action="/transactions" class="inline filters">
-  <select name="type">
+  <select name="type" aria-label="Filter by transaction type">
     <option value="">All types</option>
     <option value="income" {{fInc}}>Income</option>
     <option value="expense" {{fExp}}>Expense</option>
   </select>
-  <input name="category" placeholder="Category filter" value="{{fCategory}}">
-  <input name="from" type="date" value="{{fFrom}}">
-  <input name="to" type="date" value="{{fTo}}">
+  <input name="category" placeholder="Category filter" aria-label="Category filter" value="{{fCategory}}" maxlength="30">
+  <input name="from" type="date" aria-label="From date" value="{{fFrom}}">
+  <input name="to" type="date" aria-label="To date" value="{{fTo}}">
   <button class="btn sec">Filter</button>
   <a class="sm" href="/transactions">Clear</a>
 </form>

@@ -1,12 +1,14 @@
 /* backend/routes/reports.js - Routes: reports + CSV export  [Part 4: Reports & Admin Panel] */
 
 const { db } = require('../core/db');
-const { own, today, sum } = require('../core/helpers');
+const { own, today, sum, dt, err } = require('../core/helpers');
 const { render, each, money } = require('../core/view');
 const { page, card, barRow, empty } = require('../core/components');
 
 function build(user, q) {
-  const to = q.to || today(), from = q.from || to.slice(0, 8) + '01', all = own(db.transactions, user.id);
+  const to = q.to ? dt(q.to) : today(), from = q.from ? dt(q.from) : to.slice(0, 8) + '01';
+  if (from > to) err(400, 'Start date must be on or before end date');
+  const all = own(db.transactions, user.id);
   const ts = all.filter(t => t.date >= from && t.date <= to);
   const group = type => { const o = {}; ts.filter(t => t.type === type).forEach(t => o[t.category] = sum([o[t.category] || 0, t.amount])); return Object.entries(o).sort((a, b) => b[1] - a[1]); };
   const income = sum(ts.filter(t => t.type === 'income').map(t => t.amount)), expense = sum(ts.filter(t => t.type === 'expense').map(t => t.amount));

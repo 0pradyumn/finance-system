@@ -16,7 +16,8 @@ module.exports = function (R) {
   R('POST', '/register', false, ({ b }) => {
     const name = str(b.name, 'Name', 50), email = str(b.email, 'Email', 80).toLowerCase();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) err(400, 'Enter a valid email');
-    if (String(b.password || '').length < 6) err(400, 'Password must be at least 6 characters');
+    if (String(b.password || '').length < 6 || String(b.password || '').length > 128) err(400, 'Password must be between 6 and 128 characters');
+    if (b.password !== b.confirmPassword) err(400, 'Passwords do not match');
     if (db.users.some(u => u.email === email)) err(409, 'Email is already registered');
     const u = mkUser(name, email, b.password, 'customer');
     db.accounts.push({ id: nid(), userId: u.id, name: 'Main Account', type: 'Savings', opening: 0 });
@@ -24,8 +25,11 @@ module.exports = function (R) {
   });
 
   R('POST', '/login', false, ({ b }) => {
+    const password = String(b.password || '');
+    if (!password || password.length > 128) err(400, 'Password must be between 1 and 128 characters');
+    if (password !== String(b.confirmPassword || '')) err(400, 'Passwords do not match');
     const u = db.users.find(x => x.email === String(b.email || '').trim().toLowerCase());
-    const ok = u && crypto.timingSafeEqual(Buffer.from(hashPw(String(b.password || ''), u.salt), 'hex'), Buffer.from(u.hash, 'hex'));
+    const ok = u && crypto.timingSafeEqual(Buffer.from(hashPw(password, u.salt), 'hex'), Buffer.from(u.hash, 'hex'));
     if (!ok) err(401, 'Invalid email or password');
     if (!u.active) err(403, 'This account has been disabled. Contact the administrator.');
     return { redirect: home(u), cookie: newSession(u), ok: 'Welcome back, ' + u.name };

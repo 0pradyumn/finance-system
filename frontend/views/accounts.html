@@ -1,10 +1,10 @@
 <!-- frontend/views/accounts.html - Accounts page  [Part 2: Accounts & Transactions] -->
 <form method="post" action="/accounts" class="inline">
-  <input name="name" placeholder="Account name" required maxlength="40">
-  <select name="type">
+  <input name="name" placeholder="Account name" aria-label="Account name" required maxlength="40">
+  <select name="type" aria-label="Account type" required>
     <option>Savings</option><option>Current</option><option>Cash</option><option>Credit Card</option><option>Wallet</option>
   </select>
-  <input name="opening" type="number" step="0.01" placeholder="Opening balance">
+  <input name="opening" type="number" step="0.01" placeholder="Opening balance" aria-label="Opening balance">
   <button class="btn">Add account</button>
 </form>
 

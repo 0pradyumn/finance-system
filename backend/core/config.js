@@ -5,7 +5,7 @@ const ROOT = path.join(__dirname, '..', '..');
 
 module.exports = {
   PORT: process.env.PORT || 3000,
-  DBF: path.join(ROOT, 'bank-data.json'),                 // JSON database (auto-created)
+  DBF: process.env.DB_FILE || path.join(ROOT, 'bank-data.json'),
   VIEWS_DIR: path.join(ROOT, 'frontend', 'views'),        // HTML pages + partials
   CSS_DIR: path.join(ROOT, 'frontend', 'css'),            // stylesheets
   ROUTES_DIR: path.join(ROOT, 'backend', 'routes')        // every file here is auto-loaded

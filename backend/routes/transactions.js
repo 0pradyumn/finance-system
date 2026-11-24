@@ -1,7 +1,7 @@
 /* backend/routes/transactions.js - Routes: transactions (list, filter, add, edit, delete)  [Part 2: Accounts & Transactions] */
 
 const { db, save, nid } = require('../core/db');
-const { own, today, txIn, err } = require('../core/helpers');
+const { own, today, dt, txIn, err } = require('../core/helpers');
 const { render, each, sel } = require('../core/view');
 const { page, txTable } = require('../core/components');
 
@@ -11,6 +11,11 @@ module.exports = function (R) {
   R('GET', '/transactions', 'customer', ({ user, q, path, ...rest }) => {
     const accs = own(db.accounts, user.id), names = Object.fromEntries(accs.map(a => [a.id, a.name]));
     let t = own(db.transactions, user.id);
+    if (q.type && !['income', 'expense'].includes(q.type)) err(400, 'Invalid transaction type filter');
+    if (q.category && q.category.length > 30) err(400, 'Category filter must be no more than 30 characters');
+    if (q.from) dt(q.from);
+    if (q.to) dt(q.to);
+    if (q.from && q.to && q.from > q.to) err(400, 'Start date must be on or before end date');
     if (q.type) t = t.filter(x => x.type === q.type);
     if (q.category) t = t.filter(x => x.category.toLowerCase().includes(q.category.toLowerCase()));
     if (q.from) t = t.filter(x => x.date >= q.from);

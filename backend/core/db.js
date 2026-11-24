@@ -1,12 +1,21 @@
 /* backend/core/db.js - JSON database, password hashing, default admin  [Part 1: Core & Authentication] */
 
-const fs = require('fs'), crypto = require('crypto');
+const crypto = require('crypto');
+const fs = require('fs');
+const jsonServer = require('json-server');
 const { DBF } = require('./config');
 
-let db = { users: [], accounts: [], transactions: [], budgets: [], goals: [], sessions: {}, seq: 1 };
-if (fs.existsSync(DBF)) db = Object.assign(db, JSON.parse(fs.readFileSync(DBF, 'utf8')));
-const save = () => fs.writeFileSync(DBF, JSON.stringify(db, null, 1));
-const nid = () => db.seq++;
+if (!fs.existsSync(DBF)) fs.writeFileSync(DBF, JSON.stringify({ users: [], accounts: [], transactions: [], budgets: [], goals: [], sessions: {}, seq: { value: 1 } }, null, 1));
+const initialState = JSON.parse(fs.readFileSync(DBF, 'utf8'));
+if (!initialState.seq || typeof initialState.seq !== 'object') {
+  initialState.seq = { value: Number(initialState.seq) || 1 };
+  fs.writeFileSync(DBF, JSON.stringify(initialState, null, 1));
+}
+const router = jsonServer.router(DBF);
+const store = router.db;
+const db = Object.assign({ users: [], accounts: [], transactions: [], budgets: [], goals: [], sessions: {}, seq: { value: 1 } }, store.getState());
+const save = () => { store.setState(db); store.write(); };
+const nid = () => db.seq.value++;
 const hashPw = (p, s) => crypto.scryptSync(p, s, 32).toString('hex');
 function mkUser(name, email, pw, role) {
   const salt = crypto.randomBytes(16).toString('hex');

@@ -1,7 +1,7 @@
 /* backend/routes/accounts.js - Routes: accounts  [Part 2: Accounts & Transactions] */
 
 const { db, save, nid } = require('../core/db');
-const { str, own, bal, err } = require('../core/helpers');
+const { str, decimal, own, bal, err } = require('../core/helpers');
 const { render, each, money } = require('../core/view');
 const { page, emptyRow } = require('../core/components');
 
@@ -14,7 +14,9 @@ module.exports = function (R) {
   });
 
   R('POST', '/accounts', 'customer', ({ user, b }) => {
-    db.accounts.push({ id: nid(), userId: user.id, name: str(b.name, 'Account name', 40), type: str(b.type || 'Savings', 'Type', 20), opening: Number(b.opening) || 0 });
+    const type = str(b.type || 'Savings', 'Type', 20);
+    if (!['Savings', 'Current', 'Cash', 'Credit Card', 'Wallet'].includes(type)) err(400, 'Select a valid account type');
+    db.accounts.push({ id: nid(), userId: user.id, name: str(b.name, 'Account name', 40), type, opening: decimal(b.opening, 'Opening balance', 0) });
     save(); return { redirect: '/accounts', ok: 'Account added' };
   });
 

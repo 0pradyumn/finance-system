@@ -1,7 +1,8 @@
 <!-- frontend/views/login.html - Login page  [Part 1: Core & Authentication] -->
 <div class="tabs"><a href="/login" class="on">Login</a><a href="/register">Register</a></div>
 <form method="post" action="/login">
-  <input name="email" type="email" placeholder="Email" required>
-  <input name="password" type="password" placeholder="Password" required>
+  <input name="email" type="email" placeholder="Email" aria-label="Email" maxlength="80" autocomplete="username" required>
+  <input name="password" type="password" placeholder="Password" aria-label="Password" minlength="6" maxlength="128" autocomplete="current-password" required>
+  <input name="confirmPassword" type="password" placeholder="Confirm password" aria-label="Confirm password" minlength="6" maxlength="128" autocomplete="off" required>
   <button class="btn">Login</button>
 </form>
