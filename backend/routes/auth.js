@@ -27,7 +27,6 @@ module.exports = function (R) {
   R('POST', '/login', false, ({ b }) => {
     const password = String(b.password || '');
     if (!password || password.length > 128) err(400, 'Password must be between 1 and 128 characters');
-    if (password !== String(b.confirmPassword || '')) err(400, 'Passwords do not match');
     const u = db.users.find(x => x.email === String(b.email || '').trim().toLowerCase());
     const ok = u && crypto.timingSafeEqual(Buffer.from(hashPw(password, u.salt), 'hex'), Buffer.from(u.hash, 'hex'));
     if (!ok) err(401, 'Invalid email or password');

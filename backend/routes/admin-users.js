@@ -31,7 +31,6 @@ module.exports = function (R) {
   R('POST', '/admin/users/:id/password', 'admin', ({ p, b }) => {
     const u = db.users.find(x => x.id === +p.id); if (!u) err(404, 'User not found');
     if (String(b.password || '').length < 6 || String(b.password || '').length > 128) err(400, 'Password must be between 6 and 128 characters');
-    if (b.password !== b.confirmPassword) err(400, 'Passwords do not match');
     u.salt = crypto.randomBytes(16).toString('hex'); u.hash = hashPw(b.password, u.salt);
     save(); return { redirect: '/admin/users', ok: 'Password updated for ' + u.name };
   });
